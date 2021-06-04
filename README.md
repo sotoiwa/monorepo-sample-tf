@@ -6,7 +6,7 @@ Code シリーズを使い、モノレポ戦略の場合にでディレクトリ
 
 - 1 つの CodeCommit リポジトリに 2 つのアプリがある
 - アプリ毎に 2 つ CodePipeline のパイプラインを作成してある
-- リポジトリにコミットがあると 2 つのパイプラインが同時動き出す
+- リポジトリにコミットがあると 2 つのパイプラインが同時に動き出す
 - それぞれのパイプラインの中の CodeBuild プロジェクトでは各アプリ毎の buildspec.yml を指定してある
 - 各 buildspec.yml で S3 に置いてある前回の git tree hash と比較し、変更がなければビルドしない
 
@@ -25,7 +25,7 @@ terraform init
 terraform apply
 ```
 
-マネジメントコンソールで Secrets Manager を開いて、Terraformが 作成した `monorepo-sample-dockerhub` というシークレットに値を設定する。
+マネジメントコンソールで Secrets Manager を開いて、Terraform が 作成した `monorepo-sample-dockerhub` というシークレットに値を設定する。
 
 |キー|値|
 |---|---|
@@ -37,7 +37,7 @@ Terraform が作成した CodeCommit リポジトリに[サンプルアプリケ
 ```shell
 cd <このリポジトリの外の適当なディレクトリに移動>
 git clone https://github.com/sotoiwa/monorepo-sample-apps.git
-cd monorepo-sample
+cd monorepo-sample-apps
 # git-remote-codecommit の場合
 git remote add cc codecommit::ap-northeast-1://monorepo-sample-apps
 # 認証情報ヘルパーの場合
@@ -47,4 +47,4 @@ git push cc main
 
 CodePipeline で初回のイメージビルドが成功することを確認する。
 
-`app1/htlm/index.html` を変更して Push し、app1 のみがビルドされることを確認する。
+`app1/html/index.html` を変更して Push し、app1 のみがビルドされることを確認する。
